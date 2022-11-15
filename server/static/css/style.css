@@ -1,5 +1,7 @@
 .Text {
-    margin-left: 150px;
+margin-left: auto;
+margin-right: auto;
+position: absolute;
 }
 .elBody {
     background-color: rgb(6, 65, 142);
