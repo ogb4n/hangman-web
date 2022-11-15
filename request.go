@@ -1,7 +1,7 @@
 package hangmanweb
 
 import (
-	hc "hangmanweb/hangman-classic"
+	hc "hangmanweb/hangman_classic"
 )
 
 func test() {

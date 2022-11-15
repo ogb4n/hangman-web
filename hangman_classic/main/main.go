@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"hangman_classic"
+	hangman_classic "hangmanweb/hangman_classic"
 	"math/rand"
 	"os"
 	"time"
