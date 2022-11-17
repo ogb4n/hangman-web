@@ -45,7 +45,7 @@ body {
   text-align: center;
   color: #FF931E;
   font-family: "Prize";
-  -webkit-text-stroke: 1px black;
+  -webkit-text-stroke: 4px black;
 }
 .fullForm {
   display: inline-block;
@@ -95,7 +95,7 @@ body {
     letter-spacing: 2px;
     font-family: "Prize";
     color: #FF931E;
-    /*-webkit-text-stroke: 1px white;*/
+    -webkit-text-stroke: 1px black;
   }
 
 
@@ -109,4 +109,26 @@ body {
   margin-right: auto;
   margin-top: 10vh;
   background: rgba(9, 9, 9, 0.76);
+}
+.Bac{
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 3vh;
+  font-size: 150px;
+  letter-spacing: 5px;
+  text-align: center;
+  color: #FF931E;
+  font-family: "Prize";
+  -webkit-text-stroke: 4px black;
+}
+.Wasted{
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 3vh;
+  font-size: 150px;
+  letter-spacing: 5px;
+  text-align: center;
+  color: #2596be;
+  font-family: "Prize";
+  -webkit-text-stroke: 4px black;
 }

@@ -2,9 +2,11 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	hc "hangmanweb/hangman_classic"
 	"html/template"
+	"io/ioutil"
 	"math/rand"
 	"net/http"
 	"os"
@@ -19,6 +21,10 @@ type dataSt struct {
 	Tries      int
 }
 
+type intrSt struct {
+}
+
+var intr intrSt
 var data dataSt
 
 func main() {
@@ -36,7 +42,10 @@ func main() {
 	data.Word = wordlist[rand.Intn(len(wordlist))]
 	data.HiddenWord = hc.CreateWord(data.Word)
 
-	http.HandleFunc("/", Handler) // Ici, quand on arrive sur la racine, on appelle la fonction Handler
+	http.HandleFunc("/", Handler_index) // Ici, quand on arrive sur la racine, on appelle la fonction Handler
+	http.HandleFunc("/login", Handler_login)
+	http.HandleFunc("/win", Handler_win)
+	http.HandleFunc("/loose", Handler_loose)
 
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
@@ -46,26 +55,42 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 }
 
-func Handler(w http.ResponseWriter, r *http.Request) {
-	var state string
-	tmpl := template.Must(template.ParseFiles("static/index.html"))
+func Handler_login(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("/login")
+	tmpl1 := template.Must(template.ParseFiles("./static/login.html"))
+	if r.Method == "POST" {
+		clicked := r.FormValue("input")
+		if clicked != "" {
+			file, _ := json.MarshalIndent(clicked, "", "")
+
+			_ = ioutil.WriteFile("clients.json", file, 0644)
+			http.Redirect(w, r, "/", 301)
+		}
+	}
+	tmpl1.Execute(w, data)
+}
+
+func Handler_index(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("/index")
+	tmpl2 := template.Must(template.ParseFiles("./static/index.html"))
 	data.Letter = r.FormValue("input")
+	fmt.Print("DATA LETTER", data.Letter)
+	var state string
 
 	data.HiddenWord, state = hc.IsInputOk(data.Letter, data.Word, data.HiddenWord, &data.UsedLetter)
-	fmt.Print(data)
 
 	if state == "fail" {
 		data.Tries--
 		if data.Tries == 0 {
 			fmt.Print("You've lost!")
-			http.Redirect(w, r, "/static/loose.html", 301)
+			http.Redirect(w, r, "/loose", 301)
 		} else {
 			fmt.Println("This letter is not in the word, you've got ", data.Tries, "tries left")
 		}
 	} else if state == "good" {
 		if data.Word == data.HiddenWord {
 			fmt.Println("Congrats you've won!")
-			http.Redirect(w, r, "/static/win.html", 301)
+			http.Redirect(w, r, "./win", 301)
 		} else {
 			fmt.Println("This letter is in the word")
 		}
@@ -75,14 +100,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		data.Tries--
 		data.Tries--
 		if data.Tries == 0 {
-			http.Redirect(w, r, "/static/loose.html", 301)
+			http.Redirect(w, r, "/loose", 301)
 			fmt.Print("You've lost!")
 		} else {
 			fmt.Println("Wrong word you've got ", data.Tries, "tries left")
 		}
 	} else if state == "wordgood" {
 		fmt.Println("Congrats you've won!")
-		http.Redirect(w, r, "/static/win.html", 301)
+		http.Redirect(w, r, "/win", 301)
 	} else if state == "error" {
 		fmt.Println("Invalid letter use another one.")
 	} else if state == "wordinvalid" {
@@ -96,5 +121,15 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	tmpl.Execute(w, data)
+	tmpl2.Execute(w, data)
+}
+
+func Handler_win(w http.ResponseWriter, r *http.Request) {
+	tmpl_win := template.Must(template.ParseFiles("./static/win.html"))
+	tmpl_win.Execute(w, intr)
+}
+
+func Handler_loose(w http.ResponseWriter, r *http.Request) {
+	tmpl_loose := template.Must(template.ParseFiles("./static/loose.html"))
+	tmpl_loose.Execute(w, intr)
 }
