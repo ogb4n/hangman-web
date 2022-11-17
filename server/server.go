@@ -51,7 +51,6 @@ func main() {
 
 	data.Word = list[random]
 	data.HiddenWord = hc.CreateWord(data.Word)
-	fmt.Print(data.Word)
 
 	http.HandleFunc("/", Handler) // Ici, quand on arrive sur la racine, on appelle la fonction Handler
 
@@ -78,14 +77,13 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, data)
 	
 	data.HiddenWord, state = hc.IsInputOk(data.Letter, data.Word, data.HiddenWord, &data.usedletter)
-	fmt.Println(data.HiddenWord)
-	data.usedletter = append(data.usedletter, data.Letter)
+	fmt.Print(data)
 
 	if state == "fail" {
 		data.Tries--
 		fmt.Println("This letter is not in the word, you've got ",data.Tries, "tries left")
 	} else if state == "good" {
-		fmt.Println("Congrats this letter is in the word!")
+		fmt.Println("This letter is in the word")
 	} else if state == "usedletter" {
 		fmt.Println("You've already used this letter, try again.")
 	} else if state == "wordwrong" {
@@ -98,7 +96,3 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Invalid letter use another one.")
 	}
 }
-
-// func Checker(w http.ResponseWriter, r *http.Request) {
-// 	http.Redirect(w, r, "/", http.StatusSeeOther)
-// }
