@@ -17,11 +17,13 @@ type dataSt struct {
 	usedletter []string
 	Letter string
 	HiddenWord string
+	Tries int
 }
 
 var data dataSt
 
 func main() {
+	data.Tries = 10
 	content, _ := ioutil.ReadFile("/home/alexandre/hangman-web/hangman_classic/main/words.txt")
 	rand.Seed(time.Now().UTC().UnixNano())
 
@@ -76,8 +78,25 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, data)
 	
 	data.HiddenWord, state = hc.IsInputOk(data.Letter, data.Word, data.HiddenWord, &data.usedletter)
-	fmt.Println(state, data.HiddenWord)
+	fmt.Println(data.HiddenWord)
 	data.usedletter = append(data.usedletter, data.Letter)
+
+	if state == "fail" {
+		data.Tries--
+		fmt.Println("This letter is not in the word, you've got ",data.Tries, "tries left")
+	} else if state == "good" {
+		fmt.Println("Congrats this letter is in the word!")
+	} else if state == "usedletter" {
+		fmt.Println("You've already used this letter, try again.")
+	} else if state == "wordwrong" {
+		data.Tries--
+		data.Tries--
+		fmt.Println("Wrong word you've got ",data.Tries, "tries left")
+	} else if state == "wordgood" {
+		fmt.Println("Congrats you've won!")
+	} else if state == "error" {
+		fmt.Println("Invalid letter use another one.")
+	}
 }
 
 // func Checker(w http.ResponseWriter, r *http.Request) {
