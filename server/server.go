@@ -5,18 +5,51 @@ import (
 	hc "hangmanweb/hangman_classic"
 	"html/template"
 	"net/http"
+	"io/ioutil"
 	"os"
+	"math/rand"
+	"bufio"
+	"time"
 )
 
 type dataSt struct {
 	Word       string
-	wordtofind string
 	usedletter []string
+	Letter string
+	HiddenWord string
 }
 
 var data dataSt
 
 func main() {
+	content, _ := ioutil.ReadFile("/home/alexandre/hangman-web/hangman_classic/main/words.txt")
+	rand.Seed(time.Now().UTC().UnixNano())
+
+	file, _ := os.Open("/home/alexandre/hangman-web/hangman_classic/main/words.txt")
+	fileScanner := bufio.NewScanner(file)
+	lineCount := 0
+	for fileScanner.Scan() {
+		lineCount++
+	}
+
+	random := rand.Intn(lineCount)
+	var word string
+	var list []string
+	line := 1
+
+	for _, j := range string(content) {
+		if j == 13 {
+			list = append(list, word)
+			line++
+			word = ""
+		} else {
+			word+= string(j)
+		}
+	}
+
+	data.Word = list[random]
+	data.HiddenWord = hc.CreateWord(data.Word)
+	fmt.Print(data.Word)
 
 	http.HandleFunc("/", Handler) // Ici, quand on arrive sur la racine, on appelle la fonction Handler
 
@@ -24,28 +57,29 @@ func main() {
 	http.Handle("/css/", http.StripPrefix("/css/", fs))
 
 	fmt.Print("Le Serveur démarre sur le port 8080\n")
-	http.HandleFunc("/hangman", Checker) // Ici, on redirige vers /hangman pour effectuer les fonctions POST
+	// http.HandleFunc("/hangman", Checker) // Ici, on redirige vers /hangman pour effectuer les fonctions POST
 	http.ListenAndServe(":8080", nil)
-	wordtofind = hc.CreateWord(os.Open())
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) {
+	var state string
 	tmpl := template.Must(template.ParseFiles("static/index.html"))
-
+	data.Letter = r.FormValue("input")
+	
 	switch r.Method {
-	case "POST": //
+		case "POST": //
 		if err := r.ParseForm(); err != nil {
 			fmt.Fprintf(w, "ParseForm() err: %v", err)
 			return
 		}
 	}
 	tmpl.Execute(w, data)
+	
+	data.HiddenWord, state = hc.IsInputOk(data.Letter, data.Word, data.HiddenWord, &data.usedletter)
+	fmt.Println(state, data.HiddenWord)
+	data.usedletter = append(data.usedletter, data.Letter)
 }
 
-func Checker(w http.ResponseWriter, r *http.Request) {
-	variable := r.FormValue("input")
-	println(variable)
-	hc.IsInputOk(variable, data.Word, data.wordtofind, &data.usedletter)
-	http.Redirect(w, r, "/", http.StatusSeeOther)
-
-}
+// func Checker(w http.ResponseWriter, r *http.Request) {
+// 	http.Redirect(w, r, "/", http.StatusSeeOther)
+// }
