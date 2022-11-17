@@ -14,7 +14,7 @@ import (
 
 type dataSt struct {
 	Word       string
-	usedletter []string
+	UsedLetter []string
 	Letter string
 	HiddenWord string
 	Tries int
@@ -76,7 +76,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 	tmpl.Execute(w, data)
 	
-	data.HiddenWord, state = hc.IsInputOk(data.Letter, data.Word, data.HiddenWord, &data.usedletter)
+	data.HiddenWord, state = hc.IsInputOk(data.Letter, data.Word, data.HiddenWord, &data.UsedLetter)
 	fmt.Print(data)
 
 	if state == "fail" {
