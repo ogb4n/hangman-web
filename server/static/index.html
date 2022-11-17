@@ -4,25 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>BELOAN Hangman-Web</title>
     
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <title>BELOAN Hangman-Web</title>
+
 </head>
 <body>
     <header>
+      <img src="/static/medias/Hangman_Logo.png" alt="logo" id="logoImg">
+      <img src="/static/medias/GTAbg.jpg" alt="bg" class="siteBackground">
     </header>
-    <main class="elBody">  
-      <form action="/hangman" method="post">
-        <input id="inputBox" name="input" type="text" />
-        <input type="submit" value="Entrer" />
+
+
+    <main> 
+
+    <div class="hangTable">
+      
+    </div>
+
+    <div class="game">
+      <div class="hiddenWord">
+        {{.HiddenWord}}
+      </div>
+      <form class="fullForm" action="/hangman" method="post">
+        <input name="input" type="text" class="inputform"/>
+        <input type="submit" value="Envoies ta réponse" id="bouton"/>
       </form>
-      {{ .Word }}
-      {{ .UsedLetter}}
-      {{ .Letter }}
-      {{ .HiddenWord }}
-      {{ .Tries }}
+    </div>
+
+      <div id="usedLetters">
+        <p id="FalseLetters">FAUSSES LETTRES</p>
+        {{.UsedLetter}}
+      </div>
     </main>
+
+
     <footer>
 
     </footer>
