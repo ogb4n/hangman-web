@@ -10,7 +10,6 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
-	"time"
 )
 
 type dataSt struct {
@@ -19,29 +18,22 @@ type dataSt struct {
 	Letter     string
 	HiddenWord string
 	Tries      int
+	Difficulty string
+}
+
+type clients struct {
+	Passwords []string
+	Usernames []string
 }
 
 type intrSt struct {
 }
 
-var intr intrSt
+var wL intrSt
 var data dataSt
+var clients_data clients
 
 func main() {
-	data.Tries = 10
-	rand.Seed(time.Now().UTC().UnixNano())
-
-	f, _ := os.OpenFile("../hangman_classic/main/words.txt", os.O_RDWR, 0644)
-	scanner := bufio.NewScanner(f)
-
-	wordlist := []string{}
-	for scanner.Scan() {
-		wordlist = append(wordlist, scanner.Text())
-	}
-
-	data.Word = wordlist[rand.Intn(len(wordlist))]
-	data.HiddenWord = hc.CreateWord(data.Word)
-
 	http.HandleFunc("/", Handler_index) // Ici, quand on arrive sur la racine, on appelle la fonction Handler
 	http.HandleFunc("/login", Handler_login)
 	http.HandleFunc("/win", Handler_win)
@@ -60,28 +52,44 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 	tmpl1 := template.Must(template.ParseFiles("./static/login.html"))
 	if r.Method == "POST" {
 		clicked := r.FormValue("input")
+		button1 := r.FormValue("bouton1")
+		button2 := r.FormValue("bouton2")
+		button3 := r.FormValue("bouton3")
+
+		if button1 != "" {
+			data.Difficulty = "../hangman_classic/main/words1.txt"
+			create_game()
+		} else if button2 != "" {
+			data.Difficulty = "../hangman_classic/main/words2.txt"
+			create_game()
+		} else if button3 != "" {
+			data.Difficulty = "../hangman_classic/main/words3.txt"
+			create_game()
+		} else {
+			data.Difficulty = "../hangman_classic/main/words1.txt"
+		}
+
 		if clicked != "" {
-			file, _ := json.MarshalIndent(clicked, "", "")
+			clients_data.Usernames = append(clients_data.Usernames, clicked)
+			file, _ := json.MarshalIndent(clients_data.Usernames, "", "")
 
 			_ = ioutil.WriteFile("clients.json", file, 0644)
 			http.Redirect(w, r, "/", 301)
 		}
 	}
-	tmpl1.Execute(w, data)
+	tmpl1.Execute(w, wL)
 }
 
 func Handler_index(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("/index")
 	tmpl2 := template.Must(template.ParseFiles("./static/index.html"))
 	data.Letter = r.FormValue("input")
-	fmt.Print("DATA LETTER", data.Letter)
 	var state string
-
 	data.HiddenWord, state = hc.IsInputOk(data.Letter, data.Word, data.HiddenWord, &data.UsedLetter)
 
 	if state == "fail" {
 		data.Tries--
-		if data.Tries == 0 {
+		if data.Tries <= 0 {
 			fmt.Print("You've lost!")
 			http.Redirect(w, r, "/loose", 301)
 		} else {
@@ -99,7 +107,7 @@ func Handler_index(w http.ResponseWriter, r *http.Request) {
 	} else if state == "wordwrong" {
 		data.Tries--
 		data.Tries--
-		if data.Tries == 0 {
+		if data.Tries <= 0 {
 			http.Redirect(w, r, "/loose", 301)
 			fmt.Print("You've lost!")
 		} else {
@@ -121,15 +129,35 @@ func Handler_index(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+
+	fmt.Print(data.Tries)
 	tmpl2.Execute(w, data)
 }
 
 func Handler_win(w http.ResponseWriter, r *http.Request) {
 	tmpl_win := template.Must(template.ParseFiles("./static/win.html"))
-	tmpl_win.Execute(w, intr)
+	create_game()
+	tmpl_win.Execute(w, data)
 }
 
 func Handler_loose(w http.ResponseWriter, r *http.Request) {
 	tmpl_loose := template.Must(template.ParseFiles("./static/loose.html"))
-	tmpl_loose.Execute(w, intr)
+	create_game()
+	tmpl_loose.Execute(w, data)
+}
+
+func create_game() {
+	data.Tries = 10
+	f, _ := os.OpenFile(data.Difficulty, os.O_RDWR, 0644)
+	scanner := bufio.NewScanner(f)
+
+	wordlist := []string{}
+	for scanner.Scan() {
+		wordlist = append(wordlist, scanner.Text())
+	}
+
+	data.UsedLetter = nil
+	data.Word = wordlist[rand.Intn(len(wordlist))]
+	data.HiddenWord = hc.CreateWord(data.Word)
+	fmt.Print("new game has been created")
 }

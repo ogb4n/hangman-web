@@ -12,19 +12,27 @@
     <header>
 
         <img src="/static/medias/Hangman_Logo.svg" alt="logo" id="logoImg">
-        <img src="/static/medias/GTAbg.jpg" alt="bg" class="siteBackground">
+        <div class="fullscreen-bg">
+            <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video" id="video">
+                <source src="/static/medias/GTA5-Cinematic_Film.mp4" type="video/webm">
+            </video>
+        </div>
 
     </header>
 
     <main>
-    <div class="loggin">
-    <form class="fullForm" action="" method="POST">
-        <input name="input" type="text" class="inputform" />
-        <input type="submit" value="Entres un pseudo" id="bouton" />
-    </form>
-    </div>
-
-
+        <h1 id="Welcome">Bienvenue !</h1>
+        <div class="text">
+            <p>Connectes toi et <br> essaies de trouver le mot  </p>
+        </div>
+        <div class="login">
+        <form class="fullForm" action="" method="POST">
+            <input name="input" type="text" class="inputform" />
+                <input type="submit" id="EZ" value="easy" name="bouton1" />
+                <input type="submit" id="MED" value="medium" name="bouton2" />
+                <input type="submit" id="HARD" value="hard" name="bouton3" />
+        </form>
+        </div>
     </main>
 
     <footer>

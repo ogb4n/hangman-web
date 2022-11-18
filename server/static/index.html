@@ -21,7 +21,7 @@
     <main> 
 
     <div class="hangTable">
-
+      <img src="/static/medias/case{{ .Tries }}pendu.svg">  
     </div>
 
     <div class="game">
@@ -29,7 +29,7 @@
         {{.HiddenWord}}
       </div>
       <form class="fullForm" action="/hangman" method="post">
-        <input name="input" type="text" class="inputform"/>
+        <input name="input" type="text" class="inputform" autofocus/>
         <input type="submit" value="Envoies ta réponse" id="bouton"/>
       </form>
     </div>
@@ -39,7 +39,6 @@
         {{.UsedLetter}}
       </div>
     </main>
-
 
     <footer>
 

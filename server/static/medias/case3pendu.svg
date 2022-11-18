@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: 3px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+        stroke: #000;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        stroke-linecap: round;
+      }
+
+      .cls-2, .cls-3 {
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <polygon id="Poids" points="76.31 179.58 76.31 168.56 84.8 168.56 100.87 168.56 100.87 179.58 76.31 179.58"/>
+  <polygon id="Barre_verticale" data-name="Barre verticale" points="84.81 60.26 92.26 60.26 92.26 65.06 92.26 168.56 84.8 168.56 84.81 60.26"/>
+  <rect id="Barre_Horizontale" data-name="Barre Horizontale" x="76.17" y="65.09" width="87.56" height="5.86"/>
+  <polygon id="diagonale" points="92.26 85.4 107.01 70.95 117.15 70.95 92.26 96.09 92.26 85.4"/>
+  <line id="Corde" class="cls-3" x1="146.45" y1="70.95" x2="146.45" y2="100.56"/>
+  <circle id="Tete" cx="146.82" cy="107.47" r="7.96"/>
+  <line id="Corps" class="cls-1" x1="146.33" y1="113.91" x2="146.33" y2="132.94"/>
+  <line id="Bras_Gauche" data-name="Bras Gauche" class="cls-2" x1="145.35" y1="116.98" x2="141.63" y2="127.74"/>
+</svg>

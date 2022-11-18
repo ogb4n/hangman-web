@@ -1,6 +1,0 @@
-banc
-bureau
-cabinet
-carreau
-chaise
-classe
