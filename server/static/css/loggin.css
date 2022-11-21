@@ -6,7 +6,7 @@ body {
     text-align: center;
     padding: 0;
 }
-/*.siteBackground {
+.siteBackground {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
@@ -17,9 +17,9 @@ body {
     bottom: 0;
     z-index: -1;
     filter: blur(2px) brightness(60%) grayscale(30%) saturate(130%);
-}*/ 
+} 
 
-.fullscreen-bg__video {
+/*.fullscreen-bg__video {
     width: 100vw;
     height: 100vh;
     object-fit: cover;
@@ -32,7 +32,7 @@ body {
 }
 #video{
     filter: blur(15px) opacity(33%);
-}
+}*/
 
 #logoImg {
     display: block;
@@ -58,6 +58,7 @@ body {
     border:3px solid #FF931E;
     font-size: 40px;
     text-align: center;
+    margin-top: 10px;
     border-radius: 5px;
 }
 #bouton {
