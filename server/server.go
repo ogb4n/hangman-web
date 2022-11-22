@@ -24,6 +24,7 @@ type dataSt struct {
 	Difficulty string
 	Username   string
 	Score      int
+	Error      string
 }
 
 type clients struct {
@@ -55,6 +56,7 @@ func main() {
 func Handler_login(w http.ResponseWriter, r *http.Request) {
 	//creating template for the loging page
 	tmpl1 := template.Must(template.ParseFiles("./static/login.html"))
+	data.Error = ""
 	if r.Method == "POST" {
 		//getting our inputs
 		username := r.FormValue("input_username")
@@ -100,6 +102,7 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 			if isGood {
 				//if the password is wrong we just send an error
 				fmt.Println("Wrong password.")
+				data.Error = "Login failed"
 			} else {
 				//if there's no account with this username, we create one
 				fmt.Println("Creating your account", username)
@@ -119,12 +122,15 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 		} else {
 			if username == "" && password == "" {
 				//case if user didnt input username and password
+				data.Error = "Login failed"
 				fmt.Println("Please insert a password and an username.")
 			} else if username == "" {
 				//case if user didnt input username
+				data.Error = "Login failed"
 				fmt.Println("Please insert an username.")
 			} else {
 				//case if user didnt input password
+				data.Error = "Login failed"
 				fmt.Println("Please insert a password.")
 			}
 		}

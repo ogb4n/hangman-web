@@ -30,13 +30,16 @@
       </div>
       <form class="fullForm" action="/hangman" method="post">
         <input name="input" type="text" class="inputform" autofocus/>
-        <input type="submit" value="Envoies ta réponse" id="bouton"/>
+        <input type="submit" value="send your response" id="bouton"/>
       </form>
     </div>
 
       <div id="usedLetters">
-        <p id="FalseLetters">LETTRES UTILISÉES</p>
-        {{.UsedLetter}}
+        <p id="FalseLetters">ScoreBoard</p>
+        {{ .UsedLetter }}
+        {{ .Username }}
+        {{ .Score }}
+        {{ .Tries }}
       </div>
     </main>
 

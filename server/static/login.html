@@ -23,11 +23,12 @@
     </header>
 
     <main>
-        <h1 id="Welcome">Bienvenue !</h1>
+        <h1 id="Welcome">Welcome!</h1>
         <div class="text">
-            <p>Connectes toi et <br> essaies de trouver le mot  </p>
+            <p>Log In!<br> or Register</p>
         </div>
         <div class="login">
+            <p>{{ .Error }}</p>
         <form class="fullForm" action="" method="POST">
             <input name="input_username" type="text" class="inputform" />
             <input name="input_psswd" type="text" class="inputform" />
