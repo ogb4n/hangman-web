@@ -16,16 +16,17 @@ import (
 
 type dataSt struct {
 	//struct where i store everything needed to play the game
-	Word            string
-	UsedLetter      []string
-	Letter          string
-	HiddenWord      string
-	Tries           int
-	Difficulty      string
-	Username        string
-	Score           int
-	Error           string
-	ScoreScoreBoard []int
+	Word                 string
+	UsedLetter           []string
+	Letter               string
+	HiddenWord           string
+	Tries                int
+	Difficulty           string
+	Username             string
+	Score                int
+	Error                string
+	LeaderBoardScores    []int
+	LeaderBoardUsernames []string
 }
 
 type clients struct {
@@ -40,23 +41,24 @@ var data dataSt
 var clients_data clients
 
 func main() {
-	//url of our funcs
 	http.HandleFunc("/", Handler_index)
 	http.HandleFunc("/login", Handler_login)
 	http.HandleFunc("/win", Handler_win)
 	http.HandleFunc("/loose", Handler_loose)
+	//url of our funcs
 
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	fmt.Print("Le Serveur dÃ©marre sur le port 8080\n")
-	//listening on port 8080
 	http.ListenAndServe(":8080", nil)
+	//listening on port 8080
 }
 
 func Handler_login(w http.ResponseWriter, r *http.Request) {
-	//creating template for the loging page
 	tmpl1 := template.Must(template.ParseFiles("./static/login.html"))
+	//creating template for the loging page
+	leaderboard()
 	data.Error = ""
 	if r.Method == "POST" {
 		//getting our inputs
@@ -96,6 +98,7 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 						data.Username = clients_data.Usernames[clients_data.Which]
 						data.Score = clients_data.Scores[clients_data.Which]
 						http.Redirect(w, r, "/", http.StatusSeeOther)
+						//redirect to the main page
 					}
 				}
 			}
@@ -139,8 +142,9 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 }
 
 func Handler_index(w http.ResponseWriter, r *http.Request) {
-	//creating template for the main page
 	tmpl2 := template.Must(template.ParseFiles("./static/index.html"))
+	leaderboard()
+	//creating template for the main page
 
 	data.Letter = r.FormValue("input")
 	//getting input from hangman
@@ -183,6 +187,7 @@ func Handler_index(w http.ResponseWriter, r *http.Request) {
 		fmt.Print("This word is invalid, try again")
 	}
 
+	//shows more of the hiddenword / remove tries according to the state
 	switch r.Method {
 	case "POST":
 		if err := r.ParseForm(); err != nil {
@@ -205,6 +210,7 @@ func Handler_win(w http.ResponseWriter, r *http.Request) {
 	if data.Difficulty == "../hangman_classic/main/words3.txt" {
 		clients_data.Scores[clients_data.Which] += 3
 	}
+
 	//gives points to the user according to the difficulty
 	saveClientData()
 	//save data in clients.json
@@ -226,6 +232,7 @@ func Handler_loose(w http.ResponseWriter, r *http.Request) {
 	if data.Difficulty == "../hangman_classic/main/words3.txt" {
 		clients_data.Scores[clients_data.Which] = 0
 	}
+
 	saveClientData()
 	create_game()
 	data.Score = clients_data.Scores[clients_data.Which]
@@ -236,6 +243,7 @@ func create_game() {
 	data.Tries = 10
 	f, _ := os.OpenFile(data.Difficulty, os.O_RDWR, 0644)
 	scanner := bufio.NewScanner(f)
+	//scanning the file where words are stored to get them
 
 	wordlist := []string{}
 	for scanner.Scan() {
@@ -243,10 +251,11 @@ func create_game() {
 	}
 
 	random := rand.Intn(len(wordlist))
+	//getting a random word from the list
 	data.UsedLetter = nil
 	data.Word = wordlist[random]
 	data.HiddenWord = hc.CreateWord(data.Word)
-	//reset all importants data to play a new game
+	//reset all importants data to play a new game / launch the game
 }
 
 func saveClientData() {
@@ -260,4 +269,31 @@ func hash(password string) string {
 	hashInBytes := hash.Sum([]byte(password))[:20]
 	return hex.EncodeToString(hashInBytes)
 	//encoding passwords in sha1
+}
+
+func leaderboard() {
+	username := make([]string, len(clients_data.Usernames))
+	leaderboard := make([]int, len(clients_data.Scores))
+	copy(username, clients_data.Usernames)
+	copy(leaderboard, clients_data.Scores)
+	//making a copy cause a simple username := clients_data.Username would make a mirror
+	if len(leaderboard) > 0 {
+		for j := 0; j != len(leaderboard)-1; j++ {
+			for i := 0; i != len(leaderboard)-1; i++ {
+				if leaderboard[i] < leaderboard[i+1] {
+					swap := leaderboard[i]
+					leaderboard[i] = leaderboard[i+1]
+					leaderboard[i+1] = swap
+					swap2 := username[i]
+					username[i] = username[i+1]
+					username[i+1] = swap2
+				}
+			}
+		}
+	}
+
+	//sorting in non ascending order
+	data.LeaderBoardScores = leaderboard
+	data.LeaderBoardUsernames = username
+	//inserting variable into struct to display it via html
 }
