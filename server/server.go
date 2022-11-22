@@ -16,15 +16,16 @@ import (
 
 type dataSt struct {
 	//struct where i store everything needed to play the game
-	Word       string
-	UsedLetter []string
-	Letter     string
-	HiddenWord string
-	Tries      int
-	Difficulty string
-	Username   string
-	Score      int
-	Error      string
+	Word            string
+	UsedLetter      []string
+	Letter          string
+	HiddenWord      string
+	Tries           int
+	Difficulty      string
+	Username        string
+	Score           int
+	Error           string
+	ScoreScoreBoard []int
 }
 
 type clients struct {
@@ -61,18 +62,18 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 		//getting our inputs
 		username := r.FormValue("input_username")
 		password := r.FormValue("input_psswd")
-		button1 := r.FormValue("bouton1")
-		button2 := r.FormValue("bouton2")
-		button3 := r.FormValue("bouton3")
+		button_easy := r.FormValue("bouton1")
+		button_medium := r.FormValue("bouton2")
+		button_hard := r.FormValue("bouton3")
 
 		//choosing difficulty
-		if button1 != "" {
+		if button_easy != "" {
 			data.Difficulty = "../hangman_classic/main/words1.txt"
 			create_game()
-		} else if button2 != "" {
+		} else if button_medium != "" {
 			data.Difficulty = "../hangman_classic/main/words2.txt"
 			create_game()
-		} else if button3 != "" {
+		} else if button_hard != "" {
 			data.Difficulty = "../hangman_classic/main/words3.txt"
 			create_game()
 		} else {
@@ -98,7 +99,6 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 					}
 				}
 			}
-
 			if isGood {
 				//if the password is wrong we just send an error
 				fmt.Println("Wrong password.")
