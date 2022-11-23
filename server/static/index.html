@@ -37,18 +37,12 @@
       <div id="usedLetters">
         <p id="FalseLetters">ScoreBoard</p>
         {{ .UsedLetter }}
-        {{ .Username }}
         {{ .Score }}
-        {{ .Tries }}
         {{ .LeaderBoardScores }}
         {{ .LeaderBoardUsernames }}
       </div>
     </main>
 
-    <footer>
-      <div class="footer">
-        
-      </div>
-    </footer>
+    <footer>Welcome {{ .Username }} :). You have {{ .Tries }} tries left</footer>
 </body>
 </html>
