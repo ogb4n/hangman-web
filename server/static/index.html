@@ -34,15 +34,25 @@
       </form>
     </div>
 
-      <div id="usedLetters">
-        <p id="FalseLetters">ScoreBoard</p>
-        {{ .UsedLetter }}
-        {{ .Score }}
-        {{ .LeaderBoardScores }}
-        {{ .LeaderBoardUsernames }}
+      <div class="usedLetters">
+        <p id="used">used : {{ .UsedLetter }}</p> <br>
       </div>
+      <div class="scoreboard">
+        <p id="FalseLetters">ScoreBoard</p>
+        <p id="FalseLetters">your score : {{ .Score }}</p>
+      </div>
+        
+
+        <!--{{ .LeaderBoardScores }}
+        {{ .LeaderBoardUsernames }}-->
+
     </main>
 
-    <footer>Welcome {{ .Username }} :). You have {{ .Tries }} tries left</footer>
+    <footer>
+    <div class="footer-basic">
+      <p id="footer-text"> Welcome {{ .Username }} :). You have {{ .Tries }} tries left </p>
+    </div>
+    </footer>
+    
 </body>
 </html>

@@ -50,7 +50,7 @@ func main() {
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	fmt.Print("Le Serveur dÃ©marre sur le port 8080\n")
+	fmt.Print("Le Serveur démarre sur le port 8080\n")
 	http.ListenAndServe(":8080", nil)
 	//listening on port 8080
 }
