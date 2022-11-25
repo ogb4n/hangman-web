@@ -12,6 +12,7 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"time"
 )
 
 type dataSt struct {
@@ -50,7 +51,7 @@ func main() {
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	fmt.Print("Le Serveur démarre sur le port 8080\n")
+	fmt.Print("Le Serveur dÃ©marre sur le port 8080\n")
 	http.ListenAndServe(":8080", nil)
 	//listening on port 8080
 }
@@ -240,6 +241,7 @@ func Handler_loose(w http.ResponseWriter, r *http.Request) {
 }
 
 func create_game() {
+	rand.Seed(time.Now().UnixNano())
 	data.Tries = 10
 	f, _ := os.OpenFile(data.Difficulty, os.O_RDWR, 0644)
 	scanner := bufio.NewScanner(f)
