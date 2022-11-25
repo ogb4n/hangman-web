@@ -145,6 +145,13 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 func Handler_index(w http.ResponseWriter, r *http.Request) {
 	tmpl2 := template.Must(template.ParseFiles("./static/index.html"))
 	leaderboard()
+
+	if r.Method == "POST" {
+		indexbutton := r.FormValue("indexbutton")
+		if indexbutton != "" {
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
+		}
+	}
 	//creating template for the main page
 
 	data.Letter = r.FormValue("input")
