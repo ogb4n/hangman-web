@@ -34,16 +34,19 @@
       </form>
     </div>
 
+      <div class="triesLeft">
+        <p id="tries">{{ .Tries}} tries left </p>
+      </div>
       <div class="usedLetters">
-        <p id="used">used : {{ .UsedLetter }}</p> <br>
+        <p id="used">used : {{ .UsedLetter }}</p>
       </div>
       <div class="scoreboard">
-        <form method="POST">
-          <input type="submit" value="login page" name="indexbutton"/>
-        </form>
         <p id="FalseLetters">ScoreBoard</p>
         <p id="FalseLetters">your score : {{ .Score }}</p>
       </div>
+      <form method="POST">
+        <input class="BackButton" type="submit" value="Back to Login" name="indexbutton"/>
+      </form>
         
 
         <!--{{ .LeaderBoardScores }}

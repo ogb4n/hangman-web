@@ -25,20 +25,25 @@
     <main>
         <h1 id="Welcome">Welcome!</h1>
         <div class="text">
-            <p>Log In!<br> or Register</p>
+            <p>Log In<br> or Register</p>
             <p>{{ .Error }}</p>
         </div>
         <div class="login">
         <form class="fullForm" action="" method="POST">
-            <input name="input_username" type="text" class="inputform" />
+            <p class="usrText">Username</p>
+            <input name="input_username" type="text" class="inputform" autofocus />
+            <p class="pwdText">Password</p>
             <input name="input_psswd" type="password" class="inputform" />
                 <input type="submit" id="EZ" value="easy" name="bouton1" />
                 <input type="submit" id="MED" value="medium" name="bouton2" />
                 <input type="submit" id="HARD" value="hard" name="bouton3" />
-                {{ .LeaderBoardScores }}
-                {{ .LeaderBoardUsernames }}
-        </form>
+                </div>
+                </form>
         </div>
+        <div class="LeaderBoard">
+            <p class="ScoreText">LeaderBoard</p>
+            <p class="ScoreText">{{ .LeaderBoardScores }} | {{ .LeaderBoardUsernames }}</p>
+            </div>
     </main>
 
     <footer>
