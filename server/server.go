@@ -28,6 +28,7 @@ type dataSt struct {
 	Error                string
 	LeaderBoardScores    []int
 	LeaderBoardUsernames []string
+	PreviousWord         string
 }
 
 type clients struct {
@@ -140,6 +141,7 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 
 func Handler_index(w http.ResponseWriter, r *http.Request) {
 	tmpl2 := template.Must(template.ParseFiles("./static/index.html"))
+	data.PreviousWord = data.Word
 	leaderboard()
 
 	if r.Method == "POST" {
