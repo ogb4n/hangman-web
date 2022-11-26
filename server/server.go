@@ -65,18 +65,17 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 		//getting our inputs
 		username := r.FormValue("input_username")
 		password := r.FormValue("input_psswd")
-		button_easy := r.FormValue("bouton1")
-		button_medium := r.FormValue("bouton2")
-		button_hard := r.FormValue("bouton3")
+		radiobutton := r.FormValue("contact")
+		fmt.Println(radiobutton)
 
 		//choosing difficulty
-		if button_easy != "" {
+		if radiobutton == "easy" {
 			data.Difficulty = "../hangman_classic/main/words1.txt"
 			create_game()
-		} else if button_medium != "" {
+		} else if radiobutton == "medium" {
 			data.Difficulty = "../hangman_classic/main/words2.txt"
 			create_game()
-		} else if button_hard != "" {
+		} else if radiobutton == "hard" {
 			data.Difficulty = "../hangman_classic/main/words3.txt"
 			create_game()
 		} else {
