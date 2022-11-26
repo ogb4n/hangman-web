@@ -40,10 +40,6 @@
       <div class="usedLetters">
         <p id="used">used : {{ .UsedLetter }}</p>
       </div>
-      <div class="scoreboard">
-        <p id="FalseLetters">ScoreBoard</p>
-        <p id="FalseLetters">your score : {{ .Score }}</p>
-      </div>
       <form method="POST">
         <input class="BackButton" type="submit" value="Back to Login" name="indexbutton"/>
       </form>
@@ -56,7 +52,7 @@
 
     <footer>
     <div class="footer-basic">
-      <p id="footer-text"> Welcome {{ .Username }} :). You have {{ .Tries }} tries left </p>
+      <p id="footer-text"> Welcome {{ .Username }} :). You've got a total of {{ .Score }} point/s ! </p>
     </div>
     </footer>
     
