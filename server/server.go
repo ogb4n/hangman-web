@@ -66,6 +66,7 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 		username := r.FormValue("input_username")
 		password := r.FormValue("input_psswd")
 		radiobutton := r.FormValue("contact")
+		fmt.Println(radiobutton)
 
 		//choosing difficulty
 		if radiobutton == "easy" {
@@ -77,9 +78,6 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 		} else if radiobutton == "hard" {
 			data.Difficulty = "../hangman_classic/main/words3.txt"
 			create_game()
-		} else {
-			//basic difficulty is set to easy
-			data.Difficulty = "../hangman_classic/main/words1.txt"
 		}
 
 		var isGood bool
