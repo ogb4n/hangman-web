@@ -269,3 +269,11 @@ background-color: rgba(0, 0, 0, 0.4);
 .diffSelector {
     margin-top: 10px;
 }
+
+.error {
+    font-size: 17px; 
+    letter-spacing: 2px;
+    font-family: "Prize";
+    color: #FF931E;
+    -webkit-text-stroke: 1px black;
+}

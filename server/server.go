@@ -66,7 +66,6 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 		username := r.FormValue("input_username")
 		password := r.FormValue("input_psswd")
 		radiobutton := r.FormValue("contact")
-		fmt.Println(radiobutton)
 
 		//choosing difficulty
 		if radiobutton == "easy" {
@@ -105,7 +104,7 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 			if isGood {
 				//if the password is wrong we just send an error
 				fmt.Println("Wrong password.")
-				data.Error = "Login failed"
+				data.Error = "Wrong password."
 			} else {
 				//if there's no account with this username, we create one
 				fmt.Println("Creating your account", username)
@@ -125,15 +124,15 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 		} else {
 			if username == "" && password == "" {
 				//case if user didnt input username and password
-				data.Error = "Login failed"
+				data.Error = "Please insert a password and an username."
 				fmt.Println("Please insert a password and an username.")
 			} else if username == "" {
 				//case if user didnt input username
-				data.Error = "Login failed"
+				data.Error = "Please insert an username."
 				fmt.Println("Please insert an username.")
 			} else {
 				//case if user didnt input password
-				data.Error = "Login failed"
+				data.Error = "Please insert a password."
 				fmt.Println("Please insert a password.")
 			}
 		}
