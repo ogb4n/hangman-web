@@ -233,3 +233,18 @@ body {
     color: #FF931E;
     -webkit-text-stroke: 1px black;
 }
+
+.ScoreUsername {
+    display: flex;
+    flex-direction: column;
+}
+
+.ScorePoint {
+    display: flex;
+    flex-direction: column;
+}
+
+.Leader {
+    display: grid;
+    grid-template-rows: 50% 50%;
+}
