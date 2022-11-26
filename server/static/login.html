@@ -12,7 +12,7 @@
     <header>
 
         <img src="/static/medias/Hangman_Logo.svg" alt="logo" id="logoImg">
-        <img src="https://media2.giphy.com/media/YDoSfcw60ykyNjWiD3/giphy.gif?cid=790b7611318df0ab4811d0906c93b668864e89b8dda62fe3&rid=giphy.gif&ct=g" alt="bg" class="siteBackground">
+        <img src="/static/medias/blaine-county.jpg" alt="bg" class="siteBackground">
 
         <!--<div class="fullscreen-bg">
             <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video" id="video">
@@ -24,7 +24,7 @@
 
     <main>
         <h1 id="Welcome">Welcome!</h1>
-        <div class="text">
+        <div class="logText">
             <p>Log In<br> or Register</p>
             <p>{{ .Error }}</p>
         </div>
@@ -34,32 +34,33 @@
                 <input name="input_username" type="text" class="inputform" autofocus />
             <p class="pwdText">Password</p>
                 <input name="input_psswd" type="password" class="inputform" />
-            
-            <fieldset>
-                <legend>Select difficulty</legend>
-                <div>
-                    <input type="radio" value="easy" id="radio1" name="contact" checked="checked">
-                    <label for="radio1">Easy</label>
-                    <input type="radio" value="medium" id="radio2" name="contact">
-                    <label for="radio2">Medium</label>
-                    <input type="radio" value="hard" id="radio3" name="contact">
-                    <label for="radio3">Hard</label>
-                </div>
-            </fieldset>
-            <input type="submit" value="send" name="submitradio">                              
+                <input type="submit" value="send" name="submitradio">                              
         </form>
+        <div class="diffSelector">
+        <fieldset id="fieldset">
+            <legend id="legend">Select difficulty</legend>
+            <div>
+                <input type="radio" value="easy" id="radio1" name="contact" class="radioB" checked="checked">
+                <label for="radio1" class="logText">Easy</label>
+                <input type="radio" value="medium" id="radio2" class="radioB" name="contact">
+                <label for="radio2" class="logText">Medium</label>
+                <input type="radio" value="hard" id="radio3" class="radioB" name="contact">
+                <label for="radio3" class="logText">Hard</label>
+            </div>
+        </fieldset>
         </div>
-        <div class="LeaderBoard" id="LeaderBoard">
-            <p class="ScoreText">LeaderBoard</p>
-            <p class="ScoreText">{{range .LeaderBoardUsernames}}
-                <div class="Leader">
-                    <p class="ScoreUsername">{{.}}</p>
+        </div>
+        <div class="LeaderBoard">
+            <p >LeaderBoard</p>
+            <div class="LeaderBoardDatas">
+            <p>{{range .LeaderBoardUsernames}}
+                    <p id="players">{{.}}</p>
                     {{end}} 
                     {{range .LeaderBoardScores}}
-                    <p class="ScorePoint">{{.}} points</p>
+                    <p>{{.}}</p>
                     {{end}}
-                </div>
             </p>
+        </div>
         </div>
     </main>
 
