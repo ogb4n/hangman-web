@@ -165,13 +165,8 @@ body {
 #fieldset {
 background-color: rgba(0, 0, 0, 0.4);
 margin-top: 2vh;
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
+
 }
-
-
 
 .diffSelector {
     margin-top: 10px;
