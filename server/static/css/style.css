@@ -115,15 +115,9 @@ body {
 
 
 .usedLetters{
-  width: fit-content;
-  height: fit-content;
-
   display: flex;
-
-  position: relative;
-  left: 107vh;
-  bottom: 21vh;
-
+  justify-content: center;
+  margin-top: 10px;
   font-size: 25px; 
   letter-spacing: 2px;
   font-family: "Prize";
@@ -131,15 +125,9 @@ body {
   -webkit-text-stroke: 1px black;
 }
 .triesLeft {
-  width: fit-content;
-  height: fit-content;
-
   display: flex;
-
-  position: relative;
-  left: 107vh;
-  bottom: 17vh;
-
+  justify-content: center;
+  margin-top: 30px;
   font-size: 25px; 
   letter-spacing: 2px;
   font-family: "Prize";
@@ -204,10 +192,7 @@ body {
   text-align: center;
 }
 .BackButton {
-  position: relative;
-
-  left: -27vh;
-  bottom: 28vh;
+  position: flex;
   
   font:normal normal 300 1.3em 'Prize';
   letter-spacing: 2px;
@@ -231,4 +216,23 @@ body {
     color:rgba(255, 255, 255, 1);
     background-color:#eb173f;
     background-position: -100% 100%;
+}
+
+@media screen and (min-width:1000px) {
+  .LeaderBoard {
+    display: unset;
+    position: flex;
+    opacity: 100;
+    grid-row: 2/3;
+    width: 350px;
+    height: fit-content;
+    justify-content: flex-start;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    font-size: 25px; 
+    letter-spacing: 2px;
+    font-family: "Prize";
+    color: #FF931E;
+    -webkit-text-stroke: 1px black;
+}
 }

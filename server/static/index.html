@@ -31,23 +31,15 @@
       <form class="fullForm" action="/hangman" method="post">
         <input name="input" type="text" class="inputform" autofocus/>
         <input type="submit" value="send your response" id="bouton"/>
-      </form>
-    </div>
-
-      <div class="triesLeft">
-        <p id="tries">{{ .Tries}} tries left </p>
-      </div>
-      <div class="usedLetters">
-        <p id="used">used : {{ .UsedLetter }}</p>
-      </div>
-      <form method="POST">
         <input class="BackButton" type="submit" value="Back to Login" name="indexbutton"/>
       </form>
+    </div>
+    
+    <div class="LeaderBoard">
+      {{ .Tries}} tries left
+      used : {{ .UsedLetter }}
+    </div>
         
-
-        <!--{{ .LeaderBoardScores }}
-        {{ .LeaderBoardUsernames }}-->
-
     </main>
 
     <footer>

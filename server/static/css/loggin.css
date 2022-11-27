@@ -44,13 +44,13 @@ body {
 .login {
     margin-right: auto;
     margin-left: auto;
-    margin-top: 7vh;
     width: 300px;
     height: 90px;
 }
 .fullForm {
     position: relative;
     justify-content: center;
+    grid-row: 2/3;
     
 }
 .inputform {
@@ -131,24 +131,6 @@ body {
     -webkit-text-stroke: 1px black;
 }
 
-
-.LeaderBoard {
-    position: relative;
-    width: 350px;
-    height: fit-content;
-
-    left: 120vh;
-    bottom: 20vh;
-
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 20px;
-    font-size: 25px; 
-    letter-spacing: 2px;
-    font-family: "Prize";
-    color: #FF931E;
-    -webkit-text-stroke: 1px black;
-}
-
 .pwdText {
     display: flex;
     font-size: 14px; 
@@ -215,14 +197,42 @@ margin-top: 2vh;
     font-size: 20px;
 }
 
-.a {
-    display: grid;
+.LeaderBoard {
+    display: none;
 }
 
-.b {
-    grid-row: 1/2;
-}
+@media screen and (min-width:1000px) {
+    .whole {
+        display: grid;
+        grid-gap: 30px;
+    }
+    
+    .LeaderBoard {
+        display: unset;
+        position: flex;
+        opacity: 100;
+        grid-row: 2/3;
+        width: 350px;
+        height: fit-content;
+        justify-content: flex-start;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 20px;
+        font-size: 25px; 
+        letter-spacing: 2px;
+        font-family: "Prize";
+        color: #FF931E;
+        -webkit-text-stroke: 1px black;
+    }
 
-.c {
-    grid-row: 1/2;
+    .a {
+        display: grid;
+    }
+    
+    .b {
+        grid-row: 1/2;
+    }
+    
+    .c {
+        grid-row: 1/2;
+    }
 }
