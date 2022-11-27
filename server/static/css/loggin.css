@@ -277,3 +277,11 @@ background-color: rgba(0, 0, 0, 0.4);
     color: #FF931E;
     -webkit-text-stroke: 1px black;
 }
+
+.radiobutton {
+    color: #FF931E;
+    background-color: transparent;
+    border:2px solid #FF931E;
+    border-radius: 5px;
+    font-size: 20px;
+}
