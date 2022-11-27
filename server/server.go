@@ -66,8 +66,6 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 		//getting our inputs
 		if len(r.FormValue("input_username")) > 12 {
 			data.Error = "Username must have a maximum lenght of 12 characters."
-		} else if len(r.FormValue("input_psswd")) < 5 {
-			data.Error = "Password must have a lenght of atleast 5 characters."
 		} else {
 			username := r.FormValue("input_username")
 			password := r.FormValue("input_psswd")
