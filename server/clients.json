@@ -1,15 +1,30 @@
 {
 "Passwords": [
-"62656cda39a3ee5e6b4b0d3255bfef95601890af",
-"72696368617264da39a3ee5e6b4b0d3255bfef95"
+"62656c62656cda39a3ee5e6b4b0d3255bfef9560",
+"62656c62656cda39a3ee5e6b4b0d3255bfef9560",
+"62656c62656cda39a3ee5e6b4b0d3255bfef9560",
+"62656c62656cda39a3ee5e6b4b0d3255bfef9560",
+"62656c62656cda39a3ee5e6b4b0d3255bfef9560",
+"62656c62656cda39a3ee5e6b4b0d3255bfef9560",
+"62656c62656cda39a3ee5e6b4b0d3255bfef9560"
 ],
 "Usernames": [
 "alexandre",
-"pierre"
+"doni",
+"joel",
+"pierre",
+"jean",
+"richard",
+"poulet"
 ],
 "Scores": [
-1,
-2
+0,
+0,
+0,
+0,
+0,
+0,
+1
 ],
-"Which": 1
+"Which": 6
 }

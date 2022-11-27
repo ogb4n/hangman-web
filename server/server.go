@@ -64,75 +64,79 @@ func Handler_login(w http.ResponseWriter, r *http.Request) {
 	data.Error = ""
 	if r.Method == "POST" {
 		//getting our inputs
-		username := r.FormValue("input_username")
-		password := r.FormValue("input_psswd")
-		radiobutton := r.FormValue("contact")
-		fmt.Println(radiobutton)
+		if len(r.FormValue("input_username")) > 12 {
+			data.Error = "Username must have a maximum lenght of 12 characters."
+		} else if len(r.FormValue("input_psswd")) < 5 {
+			data.Error = "Password must have a lenght of atleast 5 characters."
+		} else {
+			username := r.FormValue("input_username")
+			password := r.FormValue("input_psswd")
+			radiobutton := r.FormValue("contact")
+			//choosing difficulty
+			if radiobutton == "easy" {
+				data.Difficulty = "../hangman_classic/main/words1.txt"
+				create_game()
+			} else if radiobutton == "medium" {
+				data.Difficulty = "../hangman_classic/main/words2.txt"
+				create_game()
+			} else if radiobutton == "hard" {
+				data.Difficulty = "../hangman_classic/main/words3.txt"
+				create_game()
+			}
 
-		//choosing difficulty
-		if radiobutton == "easy" {
-			data.Difficulty = "../hangman_classic/main/words1.txt"
-			create_game()
-		} else if radiobutton == "medium" {
-			data.Difficulty = "../hangman_classic/main/words2.txt"
-			create_game()
-		} else if radiobutton == "hard" {
-			data.Difficulty = "../hangman_classic/main/words3.txt"
-			create_game()
-		}
+			var isGood bool
 
-		var isGood bool
-
-		if username != "" && password != "" {
-			for l, i := range clients_data.Usernames {
-				//checking if user with this username already exists
-				if string(i) == username {
-					isGood = true
-					//if yes we check if password is the right one then we'll login
-					if hash(password) == clients_data.Passwords[l] {
-						fmt.Println("Logging in")
-						fmt.Println("Welcome back", username)
-						clients_data.Which = l
-						data.Username = clients_data.Usernames[clients_data.Which]
-						data.Score = clients_data.Scores[clients_data.Which]
-						http.Redirect(w, r, "/", http.StatusSeeOther)
-						//redirect to the main page
+			if username != "" && password != "" {
+				for l, i := range clients_data.Usernames {
+					//checking if user with this username already exists
+					if string(i) == username {
+						isGood = true
+						//if yes we check if password is the right one then we'll login
+						if hash(password) == clients_data.Passwords[l] {
+							fmt.Println("Logging in")
+							fmt.Println("Welcome back", username)
+							clients_data.Which = l
+							data.Username = clients_data.Usernames[clients_data.Which]
+							data.Score = clients_data.Scores[clients_data.Which]
+							http.Redirect(w, r, "/", http.StatusSeeOther)
+							//redirect to the main page
+						}
 					}
 				}
-			}
-			if isGood {
-				//if the password is wrong we just send an error
-				fmt.Println("Wrong password.")
-				data.Error = "Wrong password."
-			} else {
-				//if there's no account with this username, we create one
-				fmt.Println("Creating your account", username)
-				clients_data.Usernames = append(clients_data.Usernames, username)
-				clients_data.Passwords = append(clients_data.Passwords, hash(password))
-				clients_data.Scores = append(clients_data.Scores, 0)
-				var count int
-				for range clients_data.Usernames {
-					count++
+				if isGood {
+					//if the password is wrong we just send an error
+					fmt.Println("Wrong password.")
+					data.Error = "Wrong password."
+				} else {
+					//if there's no account with this username, we create one
+					fmt.Println("Creating your account", username)
+					clients_data.Usernames = append(clients_data.Usernames, username)
+					clients_data.Passwords = append(clients_data.Passwords, hash(password))
+					clients_data.Scores = append(clients_data.Scores, 0)
+					var count int
+					for range clients_data.Usernames {
+						count++
+					}
+					clients_data.Which = count - 1
+					data.Username = clients_data.Usernames[clients_data.Which]
+					data.Score = clients_data.Scores[clients_data.Which]
+					http.Redirect(w, r, "/", http.StatusSeeOther)
 				}
-				clients_data.Which = count - 1
-				data.Username = clients_data.Usernames[clients_data.Which]
-				data.Score = clients_data.Scores[clients_data.Which]
-				http.Redirect(w, r, "/", http.StatusSeeOther)
-			}
 
-		} else {
-			if username == "" && password == "" {
-				//case if user didnt input username and password
-				data.Error = "Please insert a password and an username."
-				fmt.Println("Please insert a password and an username.")
-			} else if username == "" {
-				//case if user didnt input username
-				data.Error = "Please insert an username."
-				fmt.Println("Please insert an username.")
 			} else {
-				//case if user didnt input password
-				data.Error = "Please insert a password."
-				fmt.Println("Please insert a password.")
+				if username == "" && password == "" {
+					//case if user didnt input username and password
+					data.Error = "Please insert a password and an username."
+					fmt.Println("Please insert a password and an username.")
+				} else if username == "" {
+					//case if user didnt input username
+					data.Error = "Please insert an username."
+					fmt.Println("Please insert an username.")
+				} else {
+					//case if user didnt input password
+					data.Error = "Please insert a password."
+					fmt.Println("Please insert a password.")
+				}
 			}
 		}
 	}
@@ -143,6 +147,7 @@ func Handler_index(w http.ResponseWriter, r *http.Request) {
 	tmpl2 := template.Must(template.ParseFiles("./static/index.html"))
 	data.PreviousWord = data.Word
 	leaderboard()
+	fmt.Print(data.Word)
 
 	if r.Method == "POST" {
 		indexbutton := r.FormValue("indexbutton")
@@ -300,7 +305,15 @@ func leaderboard() {
 	}
 
 	//sorting in non ascending order
-	data.LeaderBoardScores = leaderboard
-	data.LeaderBoardUsernames = username
-	//inserting variable into struct to display it via html
+	if len(leaderboard) > 5 {
+		data.LeaderBoardScores = nil
+		data.LeaderBoardUsernames = nil
+		for i := 0; i != 5; i++ {
+			data.LeaderBoardScores = append(data.LeaderBoardScores, leaderboard[i])
+			data.LeaderBoardUsernames = append(data.LeaderBoardUsernames, username[i])
+		}
+	} else {
+		data.LeaderBoardScores = leaderboard
+		data.LeaderBoardUsernames = username
+	}
 }
