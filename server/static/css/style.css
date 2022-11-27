@@ -162,7 +162,7 @@ body {
   left: 0;
   bottom: 0;
 
-  border-radius: 30px;
+
 
   background-color: rgba(0, 0, 0, 0.4);
 }
@@ -171,7 +171,7 @@ body {
   justify-content: center;
   color: #FF931E;
   text-align: center;
-  font-family: "Sans-serif";
+  font-family:Arial, Helvetica, sans-serif;
 }
 .BackButton {
   position: flex;
@@ -188,6 +188,7 @@ body {
   
   padding: .3em 1.2em;
   margin: auto;
+  margin-top: 15px;
   
   
   background-size: 200% 100%; 
@@ -201,6 +202,7 @@ body {
 }
 
 .ScoreBoard {
+  
   height: fit-content;
   justify-content: flex-start;
   margin-top: 10px;
@@ -217,13 +219,21 @@ body {
 @media screen and (min-width:1000px) {
   .ScoreBoard {
     width: fit-content;
-    grid-row: 1/2;
     margin-top: 0px;
     padding: 5%;
+    position: relative;
+    left: 35vh;
+    bottom: 48vh;
 }
+  .triesLeft{
+    grid-row: 1/2;
+  }
+  .usedLetters{
+    grid-row: 1/2;
+  }
 
   .whole {
     display: grid;
-    grid-gap: 30px;
+    grid-gap: 50px;
   }
 }

@@ -1,6 +1,15 @@
 {
-"Passwords": null,
-"Usernames": null,
-"Scores": null,
-"Which": 0
+"Passwords": [
+"69746164686f6e6579da39a3ee5e6b4b0d3255bf",
+"6b616b6135da39a3ee5e6b4b0d3255bfef956018"
+],
+"Usernames": [
+"doniban",
+"youcef"
+],
+"Scores": [
+0,
+0
+],
+"Which": 1
 }
