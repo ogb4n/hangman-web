@@ -1,21 +1,15 @@
 {
 "Passwords": [
-"62656cda39a3ee5e6b4b0d3255bfef95601890af",
-"72696368617264da39a3ee5e6b4b0d3255bfef95",
-"64756d6f756c696eda39a3ee5e6b4b0d3255bfef",
-"65da39a3ee5e6b4b0d3255bfef95601890afd807"
+"69746164686f6e6579da39a3ee5e6b4b0d3255bf",
+"616c65786973da39a3ee5e6b4b0d3255bfef9560"
 ],
 "Usernames": [
-"alexandre",
-"pierre",
-"jean",
-"ale"
+"doniban",
+"alexis"
 ],
 "Scores": [
-2,
 0,
-1,
-1
+0
 ],
-"Which": 3
+"Which": 0
 }

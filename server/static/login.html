@@ -33,20 +33,21 @@
             <p class="usrText">Username</p>
                 <input name="input_username" type="text" class="inputform" autofocus />
             <p class="pwdText">Password</p>
-                <input name="input_psswd" type="password" class="inputform" />
-                <fieldset id="fieldset">
-                    <legend id="legend">Select difficulty</legend>
-                    <div>
-                        <input type="radio" value="easy" id="radio1" name="contact" class="radioB" checked="checked">
-                        <label for="radio1" class="logText">Easy</label>
-                        <input type="radio" value="medium" id="radio2" class="radioB" name="contact">
-                        <label for="radio2" class="logText">Medium</label>
-                        <input type="radio" value="hard" id="radio3" class="radioB" name="contact">
-                        <label for="radio3" class="logText">Hard</label>
-                    </div>
-                </fieldset>
-                <input type="submit" value="send" name="submitradio" class="radiobutton">                              
+                <input name="input_psswd" type="password" class="inputform" />    
+                <input type="submit" value="Start a game" name="submitradio" class="bouton" id="connectButton">                          
             </form>
+            <fieldset id="fieldset">
+                <legend id="legend">Select difficulty</legend>
+                <div>
+                    <input type="radio" value="easy" id="radio1" name="contact" class="radioB" checked="checked">
+                    <label for="radio1" class="diffBoardText">Easy</label>
+                    <input type="radio" value="medium" id="radio2" class="radioB" name="contact">
+                    <label for="radio2" class="diffBoardText">Medium</label>
+                    <input type="radio" value="hard" id="radio3" class="radioB" name="contact">
+                    <label for="radio3" class="diffBoardText">Hard</label>
+                </div>
+            </fieldset>
+
         </div>
         <div class="LeaderBoard">
             LeaderBoard
