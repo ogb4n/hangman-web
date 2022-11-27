@@ -210,7 +210,6 @@ margin-top: 2vh;
     .LeaderBoard {
         display: unset;
         position: flex;
-        opacity: 100;
         grid-row: 2/3;
         width: 350px;
         height: fit-content;

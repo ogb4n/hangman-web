@@ -47,6 +47,7 @@ body {
 }
 .fullForm {
   display: inline-block;
+  grid-row: 1/2;
   
 }
 .inputform {
@@ -117,7 +118,7 @@ body {
 .usedLetters{
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 25px; 
   letter-spacing: 2px;
   font-family: "Prize";
@@ -218,21 +219,26 @@ body {
     background-position: -100% 100%;
 }
 
+.LeaderBoard {
+  height: fit-content;
+  justify-content: flex-start;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  font-size: 25px; 
+  letter-spacing: 2px;
+  font-family: "Prize";
+  color: #FF931E;
+  -webkit-text-stroke: 1px black;
+}
+
+
 @media screen and (min-width:1000px) {
   .LeaderBoard {
-    display: unset;
-    position: flex;
-    opacity: 100;
-    grid-row: 2/3;
-    width: 350px;
-    height: fit-content;
-    justify-content: flex-start;
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 20px;
-    font-size: 25px; 
-    letter-spacing: 2px;
-    font-family: "Prize";
-    color: #FF931E;
-    -webkit-text-stroke: 1px black;
+    grid-row: 1/2;
 }
+
+  .whole {
+    display: grid;
+    grid-gap: 30px;
+  }
 }
