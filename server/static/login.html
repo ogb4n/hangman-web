@@ -49,16 +49,18 @@
             </form>
         </div>
         <div class="LeaderBoard">
-            <p >LeaderBoard</p>
-            <div class="LeaderBoardDatas">
-            <p>{{range .LeaderBoardUsernames}}
-                    <p id="players">{{.}}</p>
-                    {{end}} 
+            LeaderBoard
+                <div class="a">
+                    <div class="b">
+                    {{range .LeaderBoardUsernames}}
+                    <p>{{.}}</p>
+                    {{end}}
+                    </div>
+                    <div class="c">
                     {{range .LeaderBoardScores}}
                     <p>{{.}}</p>
                     {{end}}
-            </p>
-        </div>
+                    </div>
         </div>
     </main>
 

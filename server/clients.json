@@ -1,12 +1,21 @@
 {
 "Passwords": [
-"62656cda39a3ee5e6b4b0d3255bfef95601890af"
+"62656cda39a3ee5e6b4b0d3255bfef95601890af",
+"72696368617264da39a3ee5e6b4b0d3255bfef95",
+"64756d6f756c696eda39a3ee5e6b4b0d3255bfef",
+"65da39a3ee5e6b4b0d3255bfef95601890afd807"
 ],
 "Usernames": [
-"alexandre"
+"alexandre",
+"pierre",
+"jean",
+"ale"
 ],
 "Scores": [
+2,
+0,
+1,
 1
 ],
-"Which": 0
+"Which": 3
 }

@@ -242,12 +242,6 @@ body {
     position: relative;
 }*/
 
-.LeaderBoardDatas {
-    display: flex;
-    flex-direction: column;
-
-}
-
 .Leader {
     display: grid;
     grid-template-rows: 50% 50%;
@@ -284,4 +278,16 @@ background-color: rgba(0, 0, 0, 0.4);
     border:2px solid #FF931E;
     border-radius: 5px;
     font-size: 20px;
+}
+
+.a {
+    display: grid;
+}
+
+.b {
+    grid-row: 1/2;
+}
+
+.c {
+    grid-row: 1/2;
 }
